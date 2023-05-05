@@ -1,55 +1,79 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
+# from rest_framework.parsers import JSONParser
 from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import GasStation
+from rest_framework.views import APIView
 
 
-@api_view(['GET', 'POST'])
-def gas_station_all(request):
-
-    if request.method == 'GET':
+class GasStationsAll(APIView):
+    def get(self, request):
         gas_stations = GasStation.objects.all()
         serializer = GasStationSerializer(gas_stations, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
-        # data = JSONParser().parse(request)
+    def post(self, request):
         serializer = GasStationSerializer(data=request.data)
-
         if serializer.is_valid():
             serializer.save()
-            # return JsonResponse(serializer.data, status=201)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view
-def gas_station_detail(request, pk):
-    try:
-        gas_station = GasStation.objects.get(pk=pk)
+class GasStationDetail(APIView):
 
-    except GasStation.DoesNotExist:
-        return HttpResponse(status=404)
+    def get_object(self, pk):
+        try:
+            return GasStation.objects.get(gasStationID=pk)
+        except GasStation.DoesNotExist:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
+    def get(self, request, pk):
+        gas_station = self.get_object(pk)
         serializer = GasStationSerializer(gas_station)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = GasStationSerializer(gas_station, data=data)
+    def put(self, request, pk):
+        gas_station = self.get_object(pk)
+        serializer = GasStationSerializer(gas_station, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk):
+        gas_station = self.get_object(pk)
         gas_station.delete()
-        return HttpResponse(status=204)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# class GasStationPriceData()
+
+class Users(APIView):
+
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
 
+class UserDetail(APIView):
+    def get_object(self,pk):
+        try:
+            return User.objects.get(userID=pk)
+        except User.DoesNotExist:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk):
+        user = User.objects.get(userID=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+
+class PricesData(APIView):
+    def get(self, request):
+        prices_data = PriceData.objects.all()
+        serializer = PriceDataSerializer(prices_data, many=True)
+        return Response(serializer.data)
