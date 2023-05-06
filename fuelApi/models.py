@@ -27,6 +27,7 @@ class GasStation(models.Model):
     gasStationAddress = models.CharField(max_length=400)
     phone1 = models.CharField(max_length=40)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
+    # priceData = models.ForeignKey(PriceData, related_name='' )
 
     def __str__(self):
         return self.fuelCompNormalName
@@ -34,7 +35,7 @@ class GasStation(models.Model):
 
 class PriceData(models.Model):
     productID = models.IntegerField(primary_key=True, serialize=False)
-    gasStationID = models.ForeignKey(GasStation, on_delete=models.CASCADE)
+    gasStationID = models.ForeignKey(GasStation, on_delete=models.CASCADE, related_name='price_data')
     fuelTypeID = models.IntegerField()
     fuelSubTypeID = models.IntegerField()
     fuelNormalName = models.CharField(max_length=64)

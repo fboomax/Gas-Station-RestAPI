@@ -17,7 +17,7 @@ class GasStationSerializer(serializers.ModelSerializer):
 class PriceDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = PriceData
-        fields = '__all__'
+        fields = ('gasStationID','fuelTypeID', 'fuelSubTypeID', 'fuelNormalName', 'fuelName','fuelPrice', 'dataUpdated', 'isPremium')
 
 
 class OrderSerializer(serializers.ModelSerializer):

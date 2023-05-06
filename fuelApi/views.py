@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import GasStation
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 
 
 class GasStationsAll(APIView):
@@ -48,8 +49,14 @@ class GasStationDetail(APIView):
         gas_station = self.get_object(pk)
         gas_station.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+#
+class GasStationPriceData(APIView):
 
-# class GasStationPriceData()
+    def get(self, request, pk):
+        prices_data = PriceData.objects.filter(gasStationID=pk)
+        serializer = PriceDataSerializer(prices_data, many=True)
+        return Response(serializer.data)
+
 
 class Users(APIView):
 
