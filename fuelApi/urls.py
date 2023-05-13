@@ -14,5 +14,4 @@ urlpatterns = [
     path('api/v1/users/<int:pk>', UserDetail.as_view()),
 
 
-
 ]
