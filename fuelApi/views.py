@@ -10,9 +10,10 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.db.models import Avg, Max, Min
 from django.template.defaultfilters import floatformat
+from django.core import serializers
 
 
-class GasStationsAll(APIView):
+class GasStationsAllJson(APIView):
     def get(self, request):
         gas_stations = GasStation.objects.all()
         serializer = GasStationSerializer(gas_stations, many=True)
@@ -24,6 +25,13 @@ class GasStationsAll(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GasStationsAllXML(APIView):
+    def get(self, request):
+        gas_stations = GasStation.objects.all()
+        xml_data = serializers.serialize('xml', gas_stations)
+        return HttpResponse(xml_data, content_type='application/xml')
 
 
 class GasStationDetail(APIView):
@@ -79,7 +87,7 @@ class PricesData(APIView):
 
 class PriceDataAggregate(APIView):
     def get(self, request):
-        prices = PriceData.objects.aggregate(Min('fuelPrice'),Max('fuelPrice'),Avg('fuelPrice'))
+        prices = PriceData.objects.aggregate(Min('fuelPrice'), Max('fuelPrice'), Avg('fuelPrice'))
 
         avg_price = floatformat(prices['fuelPrice__avg'], 3)
 
