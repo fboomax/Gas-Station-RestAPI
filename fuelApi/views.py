@@ -9,6 +9,7 @@ from .models import GasStation
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from django.db.models import Avg, Max, Min
+from django.template.defaultfilters import floatformat
 
 
 class GasStationsAll(APIView):
@@ -69,6 +70,28 @@ class GasStationPriceData(APIView):
         return Response(serializer.data)
 
 
+class PricesData(APIView):
+    def get(self, request):
+        prices_data = PriceData.objects.all()
+        serializer = PriceDataSerializer(prices_data, many=True)
+        return Response(serializer.data)
+
+
+class PriceDataAggregate(APIView):
+    def get(self, request):
+        prices = PriceData.objects.aggregate(Min('fuelPrice'),Max('fuelPrice'),Avg('fuelPrice'))
+
+        avg_price = floatformat(prices['fuelPrice__avg'], 3)
+
+        data = {
+            'min_price': prices['fuelPrice__min'],
+            'max_price': prices['fuelPrice__max'],
+            'avg_price': float(avg_price),
+
+        }
+        return Response(data)
+
+
 class Users(APIView):
 
     def get(self, request):
@@ -87,11 +110,4 @@ class UserDetail(APIView):
     def get(self, request, pk):
         user = User.objects.get(userID=pk)
         serializer = UserSerializer(user)
-        return Response(serializer.data)
-
-
-class PricesData(APIView):
-    def get(self, request):
-        prices_data = PriceData.objects.all()
-        serializer = PriceDataSerializer(prices_data, many=True)
         return Response(serializer.data)
