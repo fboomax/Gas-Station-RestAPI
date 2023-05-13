@@ -9,5 +9,6 @@ urlpatterns = [
     path('api/v1/users', Users.as_view()),
     path('api/v1/users/<int:pk>', UserDetail.as_view()),
     path('api/v1/prices-data', PricesData.as_view()),
+    path('api/v1/gas-stations/all', GasStationCount.as_view()),
 
 ]

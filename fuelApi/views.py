@@ -8,6 +8,7 @@ from rest_framework import status
 from .models import GasStation
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
+from django.db.models import Avg, Max, Min
 
 
 class GasStationsAll(APIView):
@@ -49,6 +50,16 @@ class GasStationDetail(APIView):
         gas_station = self.get_object(pk)
         gas_station.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class GasStationCount(APIView):
+    def get(self, request):
+        count = GasStation.objects.count()
+        data = {'count': count}
+        return Response(data)
+        # return Response(count)
+
+
 #
 class GasStationPriceData(APIView):
 
@@ -67,7 +78,7 @@ class Users(APIView):
 
 
 class UserDetail(APIView):
-    def get_object(self,pk):
+    def get_object(self, pk):
         try:
             return User.objects.get(userID=pk)
         except User.DoesNotExist:
