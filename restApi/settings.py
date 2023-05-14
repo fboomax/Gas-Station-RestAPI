@@ -112,6 +112,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+AUTH_USER_MODEL = 'fuelApi.FuelApiUser'
 
 
 AUTH_PASSWORD_VALIDATORS = [

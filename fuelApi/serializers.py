@@ -4,7 +4,8 @@ from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = FuelApiUser
+        # model = User
         fields = '__all__'
 
 
