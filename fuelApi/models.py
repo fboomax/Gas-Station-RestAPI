@@ -8,7 +8,7 @@ class User(models.Model):
     email = models.EmailField(max_length=255, unique=True)
 
     def __str__(self):
-        return self.username
+        return f'Username:{self.username} Email:{self.email} '
 
 
 class GasStation(models.Model):
