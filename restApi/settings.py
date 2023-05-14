@@ -43,12 +43,22 @@ INSTALLED_APPS = [
     'rest_framework',
     'debug_toolbar',
     'django.contrib.admin',
+    'rest_framework.authtoken',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dj_rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
+
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
 
@@ -101,6 +111,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
