@@ -25,10 +25,6 @@ The project includes a REST API to facilitate the interaction with the gas stati
 9. Using the app 
   Visit http://127.0.0.1:8000
 
-
-##Using the app
-Visit http://127.0.0.1:8000
-
 ## API Endpoints
 - 'GET /api/v1/gas-stations': Retrieve a list of gas stations (json).
 - 'GET /api/v1/gas-stations-xml': Retrive a list of gas station (XML).
