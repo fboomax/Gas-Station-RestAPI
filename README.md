@@ -1,7 +1,3 @@
-# Gas-Station-RestAPI
-
-## Overview
-
 # <font >Gas Station Django Project with REST API</font>
 
 This repository contains a Python project built with Django that simulates a gas station management system. 
