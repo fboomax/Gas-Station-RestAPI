@@ -16,13 +16,13 @@ The project includes a REST API to facilitate the interaction with the gas stati
 ## Installation & Run app
 
 1. Create Python 3.8 virtualenv and activate it
-[bash](https://docs.python.org/3/library/venv.html)
+[Python 3.8 virtualenv and activate it](https://docs.python.org/3/library/venv.html)
 3. Install Docker Engine 
-[bash](https://docs.docker.com/engine/install/)
+[Docker Engine](https://docs.docker.com/engine/install/)
 4. Clone the repository.
-5. Build docker containers
+5. Build docker containers: 
 ```bash  docker-compose build```
-7. Run docker containers ```bash ```
+7. Run docker containers: 
 ```bash  docker-compose up```
 9. Using the app 
   Visit http://127.0.0.1:8000
