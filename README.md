@@ -25,7 +25,7 @@ The project includes a REST API to facilitate the interaction with the gas stati
 
 ##Build and run docker containers
 
-```bash  docker-compose build```
+```bash  docker-compose build```\n
 ```bash  docker-compose up```
 
 ##Using the app
