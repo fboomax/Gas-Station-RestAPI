@@ -15,9 +15,9 @@ The project includes a REST API to facilitate the interaction with the gas stati
 3. Install [Docker Engine](https://docs.docker.com/engine/install/)
 4. Clone the repository
 5. Build docker containers 
-```bash  docker-compose build```
+```docker-compose build```
 7. Run docker containers
-```bash  docker-compose up```
+```docker-compose up```
 9. Using the app 
   Visit http://127.0.0.1:8000
 
