@@ -23,6 +23,13 @@ The project includes a REST API to facilitate the interaction with the gas stati
 7. Using the app 
   Visit http://127.0.0.1:8000
 
+##Build and run docker containers
+
+```bash  docker-compose build```
+```bash  docker-compose up```
+
+##Using the app
+Visit http://127.0.0.1:8000
 
 ## API Endpoints
 - 'GET /api/v1/gas-stations': Retrieve a list of gas stations (json).
